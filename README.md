@@ -22,10 +22,10 @@ Requires [FluentSMTP](https://wordpress.org/plugins/fluent-smtp/) plugin.
 
 | Software     | Minimum Version | Tested Up To |
 |--------------|-----------------|--------------|
-| WordPress    | 6.0             | 6.9          |
+| WordPress    | 6.2             | 6.9          |
 | WooCommerce  | 8.0             | 9.5          |
 | PHP          | 8.1             | 8.4          |
-| FluentSMTP   | Required        | -            |
+| FluentSMTP   | Required        | 2.2.95       |
 
 > **Note:** PHP 8.4 and 8.5 pass all CI tests but have not been tested in production.
 
