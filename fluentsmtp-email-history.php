@@ -12,14 +12,14 @@
  * WC requires at least: 8.0
  * WC tested up to: 9.5
  *
- * @package WC_User_Emails
+ * @package FluentSMTP_Email_History
  */
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'WC_USER_EMAILS_VERSION', '1.0.0' );
-define( 'WC_USER_EMAILS_PLUGIN_FILE', __FILE__ );
-define( 'WC_USER_EMAILS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'FLUENTSMTP_EMAIL_HISTORY_VERSION', '1.0.0' );
+define( 'FLUENTSMTP_EMAIL_HISTORY_PLUGIN_FILE', __FILE__ );
+define( 'FLUENTSMTP_EMAIL_HISTORY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 /**
  * Declare HPOS compatibility.
@@ -37,21 +37,21 @@ add_action(
 /**
  * Main plugin class.
  */
-final class WC_User_Emails {
+final class FluentSMTP_Email_History {
 
 	/**
 	 * Single instance.
 	 *
-	 * @var WC_User_Emails|null
+	 * @var FluentSMTP_Email_History|null
 	 */
-	private static ?WC_User_Emails $instance = null;
+	private static ?FluentSMTP_Email_History $instance = null;
 
 	/**
 	 * Get instance.
 	 *
-	 * @return WC_User_Emails
+	 * @return FluentSMTP_Email_History
 	 */
-	public static function instance(): WC_User_Emails {
+	public static function instance(): FluentSMTP_Email_History {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
@@ -76,7 +76,7 @@ final class WC_User_Emails {
 		add_filter( 'woocommerce_account_menu_items', array( $this, 'add_menu_item' ) );
 		add_action( 'woocommerce_account_emails_endpoint', array( $this, 'endpoint_content' ) );
 		add_action( 'after_switch_theme', array( $this, 'flush_rewrite_rules' ) );
-		register_activation_hook( WC_USER_EMAILS_PLUGIN_FILE, array( $this, 'activate' ) );
+		register_activation_hook( FLUENTSMTP_EMAIL_HISTORY_PLUGIN_FILE, array( $this, 'activate' ) );
 	}
 
 	/**
@@ -86,7 +86,7 @@ final class WC_User_Emails {
 	 */
 	public function load_textdomain(): void {
 		$locale = determine_locale();
-		$mofile = WC_USER_EMAILS_PLUGIN_DIR . 'languages/fluentsmtp-email-history-' . $locale . '.mo';
+		$mofile = FLUENTSMTP_EMAIL_HISTORY_PLUGIN_DIR . 'languages/fluentsmtp-email-history-' . $locale . '.mo';
 
 		// Try exact locale first (e.g., fr_FR).
 		if ( file_exists( $mofile ) ) {
@@ -96,14 +96,10 @@ final class WC_User_Emails {
 
 		// Try short locale (e.g., fr).
 		$short_locale = substr( $locale, 0, 2 );
-		$mofile_short = WC_USER_EMAILS_PLUGIN_DIR . 'languages/fluentsmtp-email-history-' . $short_locale . '.mo';
+		$mofile_short = FLUENTSMTP_EMAIL_HISTORY_PLUGIN_DIR . 'languages/fluentsmtp-email-history-' . $short_locale . '.mo';
 		if ( file_exists( $mofile_short ) ) {
 			load_textdomain( 'fluentsmtp-email-history', $mofile_short );
-			return;
 		}
-
-		// Fallback to standard WordPress loading.
-		load_plugin_textdomain( 'fluentsmtp-email-history', false, dirname( plugin_basename( WC_USER_EMAILS_PLUGIN_FILE ) ) . '/languages' );
 	}
 
 	/**
@@ -160,14 +156,14 @@ final class WC_User_Emails {
 				'myaccount/my-email-view.php',
 				array( 'email_id' => $view_id ),
 				'',
-				WC_USER_EMAILS_PLUGIN_DIR . 'templates/'
+				FLUENTSMTP_EMAIL_HISTORY_PLUGIN_DIR . 'templates/'
 			);
 		} else {
 			wc_get_template(
 				'myaccount/my-emails.php',
 				array(),
 				'',
-				WC_USER_EMAILS_PLUGIN_DIR . 'templates/'
+				FLUENTSMTP_EMAIL_HISTORY_PLUGIN_DIR . 'templates/'
 			);
 		}
 	}
@@ -191,7 +187,7 @@ final class WC_User_Emails {
  * @param int    $per_page   Results per page.
  * @return array{emails: list<array<string, mixed>>, total: int, total_pages: int, current_page: int}
  */
-function wc_user_emails_get_emails( string $user_email, int $page = 1, int $per_page = 20 ): array {
+function fluentsmtp_email_history_get_emails( string $user_email, int $page = 1, int $per_page = 20 ): array {
 	/** @var \wpdb $wpdb */
 	global $wpdb;
 
@@ -245,7 +241,7 @@ function wc_user_emails_get_emails( string $user_email, int $page = 1, int $per_
 		foreach ( $emails as $email ) {
 			if ( is_array( $email ) ) {
 				/** @var array<string, mixed> $email */
-				$processed_emails[] = wc_user_emails_unserialize_fields( $email );
+				$processed_emails[] = fluentsmtp_email_history_unserialize_fields( $email );
 			}
 		}
 	}
@@ -265,7 +261,7 @@ function wc_user_emails_get_emails( string $user_email, int $page = 1, int $per_
  * @param string $user_email User email for security check.
  * @return array<string, mixed>|null
  */
-function wc_user_emails_get_single( int $email_id, string $user_email ): ?array {
+function fluentsmtp_email_history_get_single( int $email_id, string $user_email ): ?array {
 	/** @var \wpdb $wpdb */
 	global $wpdb;
 
@@ -287,7 +283,7 @@ function wc_user_emails_get_single( int $email_id, string $user_email ): ?array 
 	}
 
 	/** @var array<string, mixed> $email */
-	return wc_user_emails_unserialize_fields( $email );
+	return fluentsmtp_email_history_unserialize_fields( $email );
 }
 
 /**
@@ -296,7 +292,7 @@ function wc_user_emails_get_single( int $email_id, string $user_email ): ?array 
  * @param array<string, mixed> $email Email data.
  * @return array<string, mixed>
  */
-function wc_user_emails_unserialize_fields( array $email ): array {
+function fluentsmtp_email_history_unserialize_fields( array $email ): array {
 	$serialized_fields = array( 'to', 'headers', 'attachments', 'response', 'extra' );
 
 	foreach ( $serialized_fields as $field ) {
@@ -314,7 +310,7 @@ function wc_user_emails_unserialize_fields( array $email ): array {
  * @param string $status Email status.
  * @return string
  */
-function wc_user_emails_status_badge( string $status ): string {
+function fluentsmtp_email_history_status_badge( string $status ): string {
 	$badges = array(
 		'sent'    => array(
 			'label' => __( 'Sent', 'fluentsmtp-email-history' ),
@@ -345,11 +341,11 @@ function wc_user_emails_status_badge( string $status ): string {
 /**
  * Initialize plugin.
  *
- * @return WC_User_Emails
+ * @return FluentSMTP_Email_History
  */
-function wc_user_emails(): WC_User_Emails {
-	return WC_User_Emails::instance();
+function fluentsmtp_email_history(): FluentSMTP_Email_History {
+	return FluentSMTP_Email_History::instance();
 }
 
 // Initialize.
-wc_user_emails();
+fluentsmtp_email_history();
