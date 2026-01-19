@@ -15,19 +15,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: wc-user-emails.php
+#: fluentsmtp-email-history.php
 msgid "My Emails"
 msgstr "Mes emails"
 
-#: wc-user-emails.php
+#: fluentsmtp-email-history.php
 msgid "Sent"
 msgstr "Envoyé"
 
-#: wc-user-emails.php
+#: fluentsmtp-email-history.php
 msgid "Failed"
 msgstr "Échec"
 
-#: wc-user-emails.php
+#: fluentsmtp-email-history.php
 msgid "Pending"
 msgstr "En attente"
 

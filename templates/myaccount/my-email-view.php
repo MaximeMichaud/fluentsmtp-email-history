@@ -2,7 +2,7 @@
 /**
  * Single email view template.
  *
- * @package WC_User_Emails
+ * @package FluentSMTP_Email_History
  * @var int $email_id Email ID passed from endpoint.
  */
 
@@ -10,11 +10,11 @@ defined( 'ABSPATH' ) || exit;
 
 $current_user = wp_get_current_user();
 $email_id     = isset( $email_id ) ? $email_id : 0;
-$email        = wc_user_emails_get_single( $email_id, $current_user->user_email );
+$email        = fluentsmtp_email_history_get_single( $email_id, $current_user->user_email );
 
 if ( ! $email ) {
-	wc_print_notice( esc_html__( 'Email not found or you do not have access to this email.', 'wc-user-emails' ), 'error' );
-	echo '<p><a href="' . esc_url( wc_get_endpoint_url( 'emails' ) ) . '" class="woocommerce-button button">&larr; ' . esc_html__( 'Back to list', 'wc-user-emails' ) . '</a></p>';
+	wc_print_notice( esc_html__( 'Email not found or you do not have access to this email.', 'fluentsmtp-email-history' ), 'error' );
+	echo '<p><a href="' . esc_url( wc_get_endpoint_url( 'emails' ) ) . '" class="woocommerce-button button">&larr; ' . esc_html__( 'Back to list', 'fluentsmtp-email-history' ) . '</a></p>';
 	return;
 }
 ?>
@@ -23,7 +23,7 @@ if ( ! $email ) {
 
 	<p class="woocommerce-my-email-back">
 		<a href="<?php echo esc_url( wc_get_endpoint_url( 'emails' ) ); ?>" class="woocommerce-button button">
-			&larr; <?php esc_html_e( 'Back to list', 'wc-user-emails' ); ?>
+			&larr; <?php esc_html_e( 'Back to list', 'fluentsmtp-email-history' ); ?>
 		</a>
 	</p>
 
@@ -32,12 +32,12 @@ if ( ! $email ) {
 
 		<div class="woocommerce-my-email-meta">
 			<div class="email-meta-row">
-				<span class="meta-label"><?php esc_html_e( 'Status:', 'wc-user-emails' ); ?></span>
-				<span class="meta-value"><?php echo wc_user_emails_status_badge( $email['status'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+				<span class="meta-label"><?php esc_html_e( 'Status:', 'fluentsmtp-email-history' ); ?></span>
+				<span class="meta-value"><?php echo fluentsmtp_email_history_status_badge( $email['status'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 			</div>
 
 			<div class="email-meta-row">
-				<span class="meta-label"><?php esc_html_e( 'Date:', 'wc-user-emails' ); ?></span>
+				<span class="meta-label"><?php esc_html_e( 'Date:', 'fluentsmtp-email-history' ); ?></span>
 				<span class="meta-value">
 					<time datetime="<?php echo esc_attr( $email['created_at'] ); ?>">
 						<?php echo esc_html( date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $email['created_at'] ) ) ); ?>
@@ -46,12 +46,12 @@ if ( ! $email ) {
 			</div>
 
 			<div class="email-meta-row">
-				<span class="meta-label"><?php esc_html_e( 'From:', 'wc-user-emails' ); ?></span>
+				<span class="meta-label"><?php esc_html_e( 'From:', 'fluentsmtp-email-history' ); ?></span>
 				<span class="meta-value"><?php echo esc_html( $email['from'] ); ?></span>
 			</div>
 
 			<div class="email-meta-row">
-				<span class="meta-label"><?php esc_html_e( 'To:', 'wc-user-emails' ); ?></span>
+				<span class="meta-label"><?php esc_html_e( 'To:', 'fluentsmtp-email-history' ); ?></span>
 				<span class="meta-value">
 					<?php
 					if ( is_array( $email['to'] ) ) {
@@ -74,17 +74,17 @@ if ( ! $email ) {
 
 			<?php if ( ( isset( $email['retries'] ) && $email['retries'] > 0 ) || ( isset( $email['resent_count'] ) && $email['resent_count'] > 0 ) ) : ?>
 				<div class="email-meta-row">
-					<span class="meta-label"><?php esc_html_e( 'Attempts:', 'wc-user-emails' ); ?></span>
+					<span class="meta-label"><?php esc_html_e( 'Attempts:', 'fluentsmtp-email-history' ); ?></span>
 					<span class="meta-value">
 						<?php
 						$parts = array();
 						if ( ! empty( $email['retries'] ) ) {
 							/* translators: %d: number of retries */
-							$parts[] = sprintf( esc_html__( 'Retries: %d', 'wc-user-emails' ), (int) $email['retries'] );
+							$parts[] = sprintf( esc_html__( 'Retries: %d', 'fluentsmtp-email-history' ), (int) $email['retries'] );
 						}
 						if ( ! empty( $email['resent_count'] ) ) {
 							/* translators: %d: number of resends */
-							$parts[] = sprintf( esc_html__( 'Resends: %d', 'wc-user-emails' ), (int) $email['resent_count'] );
+							$parts[] = sprintf( esc_html__( 'Resends: %d', 'fluentsmtp-email-history' ), (int) $email['resent_count'] );
 						}
 						echo esc_html( implode( ' | ', $parts ) );
 						?>
@@ -94,7 +94,7 @@ if ( ! $email ) {
 
 			<?php if ( ! empty( $email['attachments'] ) && is_array( $email['attachments'] ) ) : ?>
 				<div class="email-meta-row">
-					<span class="meta-label"><?php esc_html_e( 'Attachments:', 'wc-user-emails' ); ?></span>
+					<span class="meta-label"><?php esc_html_e( 'Attachments:', 'fluentsmtp-email-history' ); ?></span>
 					<span class="meta-value">
 						<?php
 						$attachment_names = array();
@@ -114,7 +114,7 @@ if ( ! $email ) {
 	</div>
 
 	<div class="woocommerce-my-email-body">
-		<h3><?php esc_html_e( 'Email content', 'wc-user-emails' ); ?></h3>
+		<h3><?php esc_html_e( 'Email content', 'fluentsmtp-email-history' ); ?></h3>
 		<div class="email-body-content">
 			<?php
 			if ( ! empty( $email['body'] ) ) {
@@ -126,7 +126,7 @@ if ( ! $email ) {
 					echo '<div class="email-body-text">' . nl2br( esc_html( $email['body'] ) ) . '</div>';
 				}
 			} else {
-				esc_html_e( 'No content available.', 'wc-user-emails' );
+				esc_html_e( 'No content available.', 'fluentsmtp-email-history' );
 			}
 			?>
 		</div>
@@ -134,15 +134,15 @@ if ( ! $email ) {
 
 	<?php if ( $email['status'] === 'failed' && ! empty( $email['response'] ) ) : ?>
 		<div class="woocommerce-my-email-error">
-			<h3><?php esc_html_e( 'Error details', 'wc-user-emails' ); ?></h3>
+			<h3><?php esc_html_e( 'Error details', 'fluentsmtp-email-history' ); ?></h3>
 			<div class="email-error-content">
 				<?php
 				if ( is_array( $email['response'] ) ) {
 					if ( isset( $email['response']['message'] ) ) {
-						echo '<p><strong>' . esc_html__( 'Message:', 'wc-user-emails' ) . '</strong> ' . esc_html( $email['response']['message'] ) . '</p>';
+						echo '<p><strong>' . esc_html__( 'Message:', 'fluentsmtp-email-history' ) . '</strong> ' . esc_html( $email['response']['message'] ) . '</p>';
 					}
 					if ( isset( $email['response']['code'] ) ) {
-						echo '<p><strong>' . esc_html__( 'Code:', 'wc-user-emails' ) . '</strong> ' . esc_html( $email['response']['code'] ) . '</p>';
+						echo '<p><strong>' . esc_html__( 'Code:', 'fluentsmtp-email-history' ) . '</strong> ' . esc_html( $email['response']['code'] ) . '</p>';
 					}
 				} else {
 					echo '<p>' . esc_html( $email['response'] ) . '</p>';
@@ -154,7 +154,7 @@ if ( ! $email ) {
 
 	<p class="woocommerce-my-email-back">
 		<a href="<?php echo esc_url( wc_get_endpoint_url( 'emails' ) ); ?>" class="woocommerce-button button">
-			&larr; <?php esc_html_e( 'Back to list', 'wc-user-emails' ); ?>
+			&larr; <?php esc_html_e( 'Back to list', 'fluentsmtp-email-history' ); ?>
 		</a>
 	</p>
 
