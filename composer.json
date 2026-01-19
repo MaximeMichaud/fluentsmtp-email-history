@@ -1,6 +1,6 @@
 {
-    "name": "maximemichaud/wc-user-emails",
-    "description": "WooCommerce User Email History - Display sent emails in customer account",
+    "name": "maximemichaud/fluentsmtp-email-history",
+    "description": "Email History for FluentSMTP - Display sent emails in WooCommerce customer account",
     "type": "wordpress-plugin",
     "require": {
         "wp-coding-standards/wpcs": "3.3.0",

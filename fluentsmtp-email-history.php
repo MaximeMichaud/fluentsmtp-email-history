@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Email History for FluentSMTP
  * Description: Display sent emails history in WooCommerce My Account for customers
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Maxime Michaud
  * Author URI: https://github.com/MaximeMichaud
  * Text Domain: fluentsmtp-email-history
@@ -19,7 +19,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'FLUENTSMTP_EMAIL_HISTORY_VERSION', '1.0.0' );
+define( 'FLUENTSMTP_EMAIL_HISTORY_VERSION', '1.0.1' );
 define( 'FLUENTSMTP_EMAIL_HISTORY_PLUGIN_FILE', __FILE__ );
 define( 'FLUENTSMTP_EMAIL_HISTORY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 

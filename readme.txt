@@ -3,7 +3,7 @@ Contributors: maximemichaud
 Tags: fluentsmtp, email history, woocommerce, my account, email logs
 Requires at least: 6.2
 Tested up to: 6.9
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires PHP: 8.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -61,6 +61,14 @@ Yes, copy the templates from `plugins/fluentsmtp-email-history/templates/` to `y
 
 == Changelog ==
 
+= 1.0.1 =
+* Renamed plugin slug to fluentsmtp-email-history
+* Renamed all functions, classes, and constants to use fluentsmtp_email_history prefix
+* Updated text-domain to fluentsmtp-email-history
+* Removed deprecated load_plugin_textdomain() call
+* Bumped minimum WordPress version to 6.2 (required for %i placeholder support)
+* Updated composer.json and phpcs.xml configuration
+
 = 1.0.0 =
 * Initial release
 * My Emails tab in WooCommerce My Account
@@ -69,6 +77,9 @@ Yes, copy the templates from `plugins/fluentsmtp-email-history/templates/` to `y
 * French translation included
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Plugin renamed from wc-user-emails to fluentsmtp-email-history. Please deactivate old version before installing.
 
 = 1.0.0 =
 Initial release.
