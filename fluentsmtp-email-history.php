@@ -5,7 +5,7 @@
  * Version: 1.0.0
  * Author: Maxime Michaud
  * Author URI: https://github.com/MaximeMichaud
- * Text Domain: wc-user-emails
+ * Text Domain: fluentsmtp-email-history
  * Domain Path: /languages
  * Requires at least: 6.0
  * Requires PHP: 8.1
@@ -86,24 +86,24 @@ final class WC_User_Emails {
 	 */
 	public function load_textdomain(): void {
 		$locale = determine_locale();
-		$mofile = WC_USER_EMAILS_PLUGIN_DIR . 'languages/wc-user-emails-' . $locale . '.mo';
+		$mofile = WC_USER_EMAILS_PLUGIN_DIR . 'languages/fluentsmtp-email-history-' . $locale . '.mo';
 
 		// Try exact locale first (e.g., fr_FR).
 		if ( file_exists( $mofile ) ) {
-			load_textdomain( 'wc-user-emails', $mofile );
+			load_textdomain( 'fluentsmtp-email-history', $mofile );
 			return;
 		}
 
 		// Try short locale (e.g., fr).
 		$short_locale = substr( $locale, 0, 2 );
-		$mofile_short = WC_USER_EMAILS_PLUGIN_DIR . 'languages/wc-user-emails-' . $short_locale . '.mo';
+		$mofile_short = WC_USER_EMAILS_PLUGIN_DIR . 'languages/fluentsmtp-email-history-' . $short_locale . '.mo';
 		if ( file_exists( $mofile_short ) ) {
-			load_textdomain( 'wc-user-emails', $mofile_short );
+			load_textdomain( 'fluentsmtp-email-history', $mofile_short );
 			return;
 		}
 
 		// Fallback to standard WordPress loading.
-		load_plugin_textdomain( 'wc-user-emails', false, dirname( plugin_basename( WC_USER_EMAILS_PLUGIN_FILE ) ) . '/languages' );
+		load_plugin_textdomain( 'fluentsmtp-email-history', false, dirname( plugin_basename( WC_USER_EMAILS_PLUGIN_FILE ) ) . '/languages' );
 	}
 
 	/**
@@ -135,7 +135,7 @@ final class WC_User_Emails {
 		$logout = $items['customer-logout'] ?? '';
 		unset( $items['customer-logout'] );
 
-		$items['emails'] = esc_html__( 'My Emails', 'wc-user-emails' );
+		$items['emails'] = esc_html__( 'My Emails', 'fluentsmtp-email-history' );
 
 		if ( $logout ) {
 			$items['customer-logout'] = $logout;
@@ -317,15 +317,15 @@ function wc_user_emails_unserialize_fields( array $email ): array {
 function wc_user_emails_status_badge( string $status ): string {
 	$badges = array(
 		'sent'    => array(
-			'label' => __( 'Sent', 'wc-user-emails' ),
+			'label' => __( 'Sent', 'fluentsmtp-email-history' ),
 			'class' => 'success',
 		),
 		'failed'  => array(
-			'label' => __( 'Failed', 'wc-user-emails' ),
+			'label' => __( 'Failed', 'fluentsmtp-email-history' ),
 			'class' => 'error',
 		),
 		'pending' => array(
-			'label' => __( 'Pending', 'wc-user-emails' ),
+			'label' => __( 'Pending', 'fluentsmtp-email-history' ),
 			'class' => 'pending',
 		),
 	);
