@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<psalm
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="vendor/vimeo/psalm/config.xsd"
+    errorLevel="8"
+    findUnusedBaselineEntry="false"
+    findUnusedCode="false">
+
+    <projectFiles>
+        <directory name="." />
+        <ignoreFiles>
+            <directory name="vendor" />
+            <directory name="templates" />
+            <file name=".php-cs-fixer.php" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <stubs>
+        <file name="vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php" />
+        <file name="vendor/php-stubs/wordpress-stubs/wordpress-stubs.php" />
+    </stubs>
+
+    <issueHandlers>
+        <MissingReturnType errorLevel="suppress" />
+        <MissingParamType errorLevel="suppress" />
+        <MixedArgument errorLevel="suppress" />
+        <MixedAssignment errorLevel="suppress" />
+        <MixedMethodCall errorLevel="suppress" />
+        <MixedPropertyFetch errorLevel="suppress" />
+        <MixedOperand errorLevel="suppress" />
+        <UndefinedThisPropertyFetch errorLevel="suppress" />
+        <UndefinedPropertyAssignment errorLevel="suppress" />
+        <UndefinedPropertyFetch errorLevel="suppress" />
+        <UnusedVariable errorLevel="suppress" />
+        <InvalidGlobal errorLevel="suppress" />
+        <PossiblyInvalidMethodCall errorLevel="suppress" />
+        <RiskyTruthyFalsyComparison errorLevel="suppress" />
+        <UndefinedClass errorLevel="suppress" />
+        <UndefinedFunction errorLevel="suppress" />
+        <InvalidReturnType errorLevel="suppress" />
+        <InvalidReturnStatement errorLevel="suppress" />
+        <InvalidFalsableReturnType errorLevel="suppress" />
+        <PossiblyUndefinedVariable errorLevel="suppress" />
+        <UndefinedMagicMethod errorLevel="suppress" />
+        <UndefinedInterfaceMethod errorLevel="suppress" />
+        <UndefinedConstant errorLevel="suppress" />
+        <DuplicateArrayKey errorLevel="suppress" />
+        <DuplicateClass errorLevel="suppress" />
+        <MissingOverrideAttribute errorLevel="suppress" />
+    </issueHandlers>
+
+</psalm>

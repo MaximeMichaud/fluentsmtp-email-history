@@ -1,0 +1,16 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+parameters:
+    level: 10
+    paths:
+        - .
+    excludePaths:
+        - vendor/*
+        - templates/*
+    scanFiles:
+        - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+        - vendor/php-stubs/woocommerce-stubs/woocommerce-packages-stubs.php
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - '#no value type specified in iterable type array#'

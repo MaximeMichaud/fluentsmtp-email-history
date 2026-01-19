@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<ruleset name="WC-User-Emails">
+    <description>WooCommerce User Emails plugin coding standards based on WordPress Coding Standards</description>
+
+    <!-- Scan these files -->
+    <file>.</file>
+
+    <!-- Exclude vendor directory -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+
+    <!-- Exclude templates (mostly HTML) -->
+    <exclude-pattern>*/templates/*</exclude-pattern>
+
+    <!-- Exclude node_modules if present -->
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+
+    <!-- Show sniff codes in all reports -->
+    <arg value="ps"/>
+    <arg name="colors"/>
+
+    <!-- Scan only PHP files -->
+    <arg name="extensions" value="php"/>
+
+    <!-- Set default encoding -->
+    <arg name="encoding" value="utf-8"/>
+
+    <!-- Show progress -->
+    <arg value="p"/>
+
+    <!-- Set number of parallel jobs -->
+    <arg name="parallel" value="8"/>
+
+    <!-- WordPress Coding Standards -->
+    <rule ref="WordPress">
+        <!-- Exclude inline comment formatting rules -->
+        <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+
+        <!-- Exclude missing comments for classes, functions, parameters -->
+        <exclude name="Squiz.Commenting.ClassComment.Missing"/>
+        <exclude name="Squiz.Commenting.FunctionComment.Missing"/>
+        <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
+        <exclude name="Squiz.Commenting.FunctionComment.MissingParamTag"/>
+        <exclude name="Generic.Commenting.DocComment.MissingShort"/>
+        <exclude name="Squiz.Commenting.VariableComment.Missing"/>
+        <exclude name="Squiz.Commenting.FileComment.Missing"/>
+        <exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
+
+        <!-- Exclude Yoda Conditions notices -->
+        <exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+
+        <!-- Exclude underscore prefix warning for private properties -->
+        <exclude name="PSR2.Classes.PropertyDeclaration.Underscore"/>
+
+        <!-- Exclude unused parameter warnings -->
+        <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+
+        <!-- Exclude strict separation of function/class declarations -->
+        <exclude name="PSR1.Files.SideEffects.FoundWithSymbols"/>
+
+        <!-- Allow polyfill functions with classes -->
+        <exclude name="Universal.Files.SeparateFunctionsFromOO.Mixed"/>
+
+        <!-- Allow slow meta queries (required for plugin functionality) -->
+        <exclude name="WordPress.DB.SlowDBQuery.slow_db_query_meta_key"/>
+        <exclude name="WordPress.DB.SlowDBQuery.slow_db_query_meta_value"/>
+
+        <!-- Exclude member variable comment style -->
+        <exclude name="Squiz.Commenting.VariableComment.WrongStyle"/>
+
+        <!-- Exclude strict equals sign alignment -->
+        <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning"/>
+        <exclude name="WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned"/>
+    </rule>
+
+    <!-- PHPCompatibility for PHP 8.1+ -->
+    <rule ref="PHPCompatibilityWP"/>
+    <config name="testVersion" value="8.1-"/>
+
+    <!-- Text domain configuration -->
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array">
+                <element value="wc-user-emails"/>
+                <element value="woocommerce"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Prefix configuration for globals/hooks -->
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+        <properties>
+            <property name="prefixes" type="array">
+                <element value="wc_user_emails"/>
+                <element value="WC_USER_EMAILS"/>
+                <element value="woocommerce"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Custom capabilities for this plugin -->
+    <rule ref="WordPress.WP.Capabilities">
+        <properties>
+            <property name="custom_capabilities" type="array">
+                <element value="manage_woocommerce"/>
+                <element value="view_own_emails"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Allow short array syntax -->
+    <rule ref="Generic.Arrays.DisallowShortArraySyntax.Found">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Main plugin file doesn't need class- prefix -->
+    <rule ref="WordPress.Files.FileName.InvalidClassFileName">
+        <exclude-pattern>wc-user-emails.php</exclude-pattern>
+    </rule>
+
+</ruleset>
