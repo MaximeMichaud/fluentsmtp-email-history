@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="WC-User-Emails">
-    <description>WooCommerce User Emails plugin coding standards based on WordPress Coding Standards</description>
+<ruleset name="FluentSMTP-Email-History">
+    <description>Email History for FluentSMTP plugin coding standards based on WordPress Coding Standards</description>
 
     <!-- Scan these files -->
     <file>.</file>
@@ -80,7 +80,7 @@
     <rule ref="WordPress.WP.I18n">
         <properties>
             <property name="text_domain" type="array">
-                <element value="wc-user-emails"/>
+                <element value="fluentsmtp-email-history"/>
                 <element value="woocommerce"/>
             </property>
         </properties>
@@ -90,8 +90,9 @@
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <properties>
             <property name="prefixes" type="array">
-                <element value="wc_user_emails"/>
-                <element value="WC_USER_EMAILS"/>
+                <element value="fluentsmtp_email_history"/>
+                <element value="FLUENTSMTP_EMAIL_HISTORY"/>
+                <element value="FluentSMTP_Email_History"/>
                 <element value="woocommerce"/>
             </property>
         </properties>
@@ -114,7 +115,7 @@
 
     <!-- Main plugin file doesn't need class- prefix -->
     <rule ref="WordPress.Files.FileName.InvalidClassFileName">
-        <exclude-pattern>wc-user-emails.php</exclude-pattern>
+        <exclude-pattern>fluentsmtp-email-history.php</exclude-pattern>
     </rule>
 
 </ruleset>
